@@ -1,0 +1,28 @@
+<% include ./partials/header.ejs %>
+
+<div class="w-full min-h-screen bg-zinc-900 px-4 py-5">
+<div class="nav flex justify-between items-center px-4">
+    <h3 class="text-lg text-white"><%= user.username %></h3>
+    <div class="icons flex gap-5">
+      <a href="/upload"><i class="text-[1.4rem] ri-add-box-line text-white"></i></a>
+      <a href="/logout"><i class="text-[1.4rem] ri-logout-box-line text-white"></i></a>
+    </div>
+  </div>
+  <div class="users">
+    <% followerUser.followers.forEach(function(follower){ %>
+    <a href="/user/profile/<%= follower._id %>"> <div class="text-white flex items-center gap-2 mt-5">
+      <div class="image w-[11vw] h-[11vw] rounded-full bg-sky-100 overflow-hidden">
+          <img src="/images/uploads/<%= follower.pfpimage %>" class="w-full h-full object-cover" alt="">
+      </div>
+      <div class="text">
+          <h3><%= follower.username %></h3>
+          <h4 class="text-xs opacity-30 leading-none"><%= follower.name %></h4>
+      </div>
+  </div>
+</a>
+<% }) %>
+  </div>
+
+  </div>
+
+<% include ./partials/footer.ejs %>

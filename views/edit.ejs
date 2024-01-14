@@ -1,0 +1,64 @@
+<% include ./partials/header.ejs %>
+  <div class="w-full min-h-screen bg-zinc-900 text-white py-5">
+    <div class="flex justify-between items-center px-4">
+      <a class="text-sm text-blue-500" href="/profile"><i class="ri-arrow-left-s-line"></i> profile</a>
+      <h2 class="leading-none text-sm">Edit Profile</h2>
+      <a class="text-sm" href="/feed"><i class="ri-home-line"></i> home</a>
+    </div>
+    <div class="flex flex-col items-center gap-2 mt-20">
+      <div class="image w-20 h-20 bg-sky-100 rounded-full overflow-hidden">
+        <img src="/images/uploads/<%= user.pfpimage %>" class="w-full h-full object-cover" alt="" id="imagePreview">
+      </div>
+      <button class="text-blue-500 capitalize" id="editPfp">Edit Picture</button>
+      <!-- <form action="/uploadpfp" method="post" hidden id="pfpImageUploadForm">
+        <input type="file" name="pfpimage" hidden id="pfpImageUploadInput">
+      </form> -->
+    </div>
+    <div class="gap-5 px-4 mt-10">
+      <h3 class="text-lg leading-none">Edit Account Details</h3>
+      <hr class="opacity-30 my-3">
+      <form class="w-full" action="/profile/update" method="post" enctype="multipart/form-data" accept="image/*">
+        <input type="file" name="dp" hidden id="pfpImageUploadInput">
+        <input class="px-3 mt-2 py-2 border-2 border-zinc-800 rounded-md block w-full bg-zinc-900" type="text" placeholder="Username" name="username" value="<%= user.username %>">
+        <input class="px-3 mt-2 py-2 border-2 border-zinc-800 rounded-md block w-full bg-zinc-900" type="text" placeholder="Name" name="name" value="<%= user.name %>">
+        <input class="px-3 mt-2 py-2 border-2 border-zinc-800 rounded-md block w-full bg-zinc-900" type="email" placeholder="Email" name="email" value="<%= user.email %>">
+        <textarea class="px-3 mt-2 py-2 border-2 border-zinc-800 rounded-md block w-full bg-zinc-900 resize-none" placeholder="Bio" name="bio"><%= user.bio %></textarea>
+        <input class="w-full bg-blue-500 px-3 py-3 rounded-md mt-2" type="submit" value="Update Details">
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('editPfp').addEventListener('click' , function(){
+      document.getElementById('pfpImageUploadInput').click();
+    });
+
+
+    function previewImage() {
+      var input = document.getElementById('pfpImageUploadInput');
+      var preview = document.getElementById('imagePreview');
+
+      var file = input.files[0];
+
+      if (file) {
+        var reader = new FileReader();
+
+        // Set up the onload event for the FileReader
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+          preview.style.display = 'block'; // Display the image preview
+        };
+
+        // Read the file as a data URL
+        reader.readAsDataURL(file);
+      } else {
+        // If no file is selected, hide the preview
+        preview.style.display = 'none';
+      }
+    }
+
+    // Attach the previewImage function to the change event of the file input
+    document.getElementById('pfpImageUploadInput').addEventListener('change', previewImage);
+ 
+  </script>
+<% include ./partials/footer.ejs %>

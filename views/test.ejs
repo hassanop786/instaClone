@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Preview</title>
+</head>
+<body>
+
+  <input type="file" id="uploadInput" accept="image/*">
+  <img id="imagePreview" src="#" alt="Image Preview" style="display:none; max-width: 100%; max-height: 200px;">
+
+  <script>
+    // Function to handle file input change
+    function previewImage() {
+      var input = document.getElementById('uploadInput');
+      var preview = document.getElementById('imagePreview');
+
+      var file = input.files[0];
+
+      if (file) {
+        var reader = new FileReader();
+
+        // Set up the onload event for the FileReader
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+          preview.style.display = 'block'; // Display the image preview
+        };
+
+        // Read the file as a data URL
+        reader.readAsDataURL(file);
+      } else {
+        // If no file is selected, hide the preview
+        preview.style.display = 'none';
+      }
+    }
+
+    // Attach the previewImage function to the change event of the file input
+    document.getElementById('uploadInput').addEventListener('change', previewImage);
+  </script>
+
+</body>
+</html>
